@@ -1,19 +1,16 @@
 import Message from "../models/Message.js";
 
 export async function insertOrUpdateMessage(payload) {
-  // payload should be normalized to contain msg_id or meta_msg_id and wa_id etc.
   const query = payload.msg_id
     ? { msg_id: payload.msg_id }
     : payload.meta_msg_id
     ? { meta_msg_id: payload.meta_msg_id }
     : {};
   if (!Object.keys(query).length) {
-    // create new
     const m = new Message(payload);
     await m.save();
     return m;
   }
-  // upsert: if exists update, else create
   const updated = await Message.findOneAndUpdate(
     query,
     { $set: payload },

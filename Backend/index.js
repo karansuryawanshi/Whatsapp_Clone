@@ -17,7 +17,6 @@ const io = new Server(server, { cors: { origin: "*" } });
 app.use(cors());
 app.use(bodyParser.json({ limit: "5mb" }));
 
-// attach io to app so routes can use it
 app.set("io", io);
 
 app.use("/webhook", webhookRouter);
@@ -28,7 +27,6 @@ io.on("connection", (socket) => {
   socket.on("disconnect", () => console.log("socket disconnected", socket.id));
 });
 
-// start
 const PORT = process.env.PORT || 4000;
 connectDB()
   .then(() => {

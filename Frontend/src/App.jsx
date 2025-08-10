@@ -10,7 +10,6 @@ export default function App() {
   const [isMobileView, setIsMobileView] = useState(window.innerWidth < 768);
 
   useEffect(() => {
-    // Handle resize for mobile/desktop view
     const handleResize = () => {
       setIsMobileView(window.innerWidth < 768);
     };
@@ -37,7 +36,6 @@ export default function App() {
 
   return (
     <div className="h-screen flex bg-gray-100">
-      {/* Sidebar */}
       {(!isMobileView || (isMobileView && !selected)) && (
         <Sidebar
           conversations={conversations}
@@ -46,12 +44,11 @@ export default function App() {
         />
       )}
 
-      {/* Chat Window */}
       {(!isMobileView || (isMobileView && selected)) && (
         <ChatWindow
           wa_id={selected}
           onMessageSent={load}
-          onBack={() => setSelected(null)} // allow going back on mobile
+          onBack={() => setSelected(null)}
         />
       )}
     </div>

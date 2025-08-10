@@ -32,7 +32,6 @@ export default function MessageBubble({ m }) {
               <CheckCheck size={15} />
             </div>
           )}
-          {/* {mine ? ` • ${m.status}` : ""} */}
         </div>
       </div>
     </div>

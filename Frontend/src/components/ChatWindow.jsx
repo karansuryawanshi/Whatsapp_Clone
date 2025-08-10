@@ -35,21 +35,15 @@ export default function ChatWindow({ wa_id, onMessageSent, onBack }) {
   }
 
   async function loadContactName() {
-    // Since we don't have a direct API for a single conversation, grab from local storage or fetch all and find it
-    const resp = await fetch("http://localhost:5000/api/conversations");
+    console.log("convos");
+    const resp = await fetch(
+      "https://whatsapp-clone-lri2.onrender.com/api/conversations"
+    );
     const convos = await resp.json();
+    console.log("convos", convos);
     const convo = convos.find((c) => c.wa_id === wa_id);
     if (convo) setContactName(convo.name || "");
   }
-
-  // async function submit(e) {
-  //   e.preventDefault();
-  //   if (!text.trim()) return;
-  //   await sendMessage({ wa_id, body: text });
-  //   setText("");
-  //   if (onMessageSent) onMessageSent();
-  //   await loadMessages();
-  // }
 
   async function submit(e) {
     e.preventDefault();
@@ -86,6 +80,7 @@ export default function ChatWindow({ wa_id, onMessageSent, onBack }) {
           <span className="p-2 bg-neutral-200 rounded-full">
             <User></User>
           </span>
+          {/* {console.log("contactName", contactName)} */}
           <span>{contactName || wa_id}</span>
         </div>
         <div className="flex items-center gap-4 mx-4">
@@ -101,16 +96,13 @@ export default function ChatWindow({ wa_id, onMessageSent, onBack }) {
         </div>
       </div>
 
-      {/* Messages */}
       <div className="wallpaper flex flex-col h-[90vh]">
-        {/* Messages list */}
         <div className="flex-1 p-4 overflow-auto space-y-4">
           {messages.map((m) => (
             <MessageBubble key={m._id} m={m} />
           ))}
         </div>
 
-        {/* Input form - stays fixed at bottom */}
         <form onSubmit={submit} className="flex items-center gap-2">
           <select
             value={sender}
@@ -120,27 +112,13 @@ export default function ChatWindow({ wa_id, onMessageSent, onBack }) {
             <option value="me">Me</option>
             <option value={wa_id}>{contactName || wa_id}</option>
           </select>
-          {/* <input
-            value={text}
-            onChange={(e) => setText(e.target.value)}
-            placeholder="Type a message"
-            className="flex-1 p-2 border rounded-md"
-          />
-          <button
-            type="submit"
-            className="px-4 py-2 bg-green-600 text-white rounded"
-          >
-            Send
-          </button> */}
+
           <div className="my-1 gap-2 w-full">
             <div
               className={`flex items-center gap-2 px-4 py-2 rounded-full transition-all duration-200 
           bg-white shadow`}
             >
-              <span
-                // onClick={handleImageClick}
-                className="p-2 rounded-full hover:bg-[#f7f5f3] duration-300 cursor-pointer"
-              >
+              <span className="p-2 rounded-full hover:bg-[#f7f5f3] duration-300 cursor-pointer">
                 <Plus size={20} className="text-black justify-start" />
               </span>
               <span className="p-2 rounded-full hover:bg-[#f7f5f3] duration-300">
@@ -152,11 +130,9 @@ export default function ChatWindow({ wa_id, onMessageSent, onBack }) {
                 onChange={(e) => setText(e.target.value)}
                 placeholder="Type a message"
                 className=" text-gray-800 w-full focus:outline-none focus:border-none"
-                // onChange={(e) => setText(e.target.value)}
               />
               {text.length > 0 ? (
                 <button
-                  // onClick={handleSend}
                   type="submit"
                   className={`p-2 rounded-full cursor-pointer bg-green-600 hover:bg-green-500 duration-300 
                   `}

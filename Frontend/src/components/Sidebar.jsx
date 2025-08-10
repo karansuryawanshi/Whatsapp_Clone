@@ -61,7 +61,6 @@ export default function Sidebar({ conversations, selected, onSelect }) {
         {conversations.map((c) => (
           <div
             key={c._id}
-            // className="px-2 py-3 flex items-center hover:bg-[#f7f5f2] my-2 mx-4 rounded-lg cursor-pointer"
             className={`px-2 py-3 flex items-center hover:bg-[#f7f5f2] my-2 mx-4 rounded-lg cursor-pointer ${
               selected === c.wa_id ? "bg-[#f7f5f2]" : "hover:bg-gray-50"
             }`}

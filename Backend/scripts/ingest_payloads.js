@@ -20,7 +20,6 @@ async function ingest() {
 
     let messages = [];
 
-    // Handle WhatsApp webhook format with nested name
     if (
       content.payload_type === "whatsapp_webhook" &&
       content.metaData?.entry
@@ -39,7 +38,7 @@ async function ingest() {
               value.messages.map((m) => ({
                 msg_id: m.id,
                 wa_id: m.from,
-                name: contactNameMap[m.from] || null, // 👈 store name here
+                name: contactNameMap[m.from] || null,
                 from: m.from,
                 to: value.metadata?.display_phone_number || null,
                 body: m.text?.body || null,
@@ -56,7 +55,6 @@ async function ingest() {
       });
     }
 
-    // Fallback for other formats
     if (!messages.length) {
       const events =
         content.events ||
@@ -66,7 +64,7 @@ async function ingest() {
         events.map((ev) => ({
           msg_id: ev.id || ev.message_id || ev.msg_id,
           wa_id: ev.from || ev.wa_id || ev.sender,
-          name: ev.name || null, // if present
+          name: ev.name || null,
           from: ev.from || ev.sender || null,
           to: ev.to || null,
           body:

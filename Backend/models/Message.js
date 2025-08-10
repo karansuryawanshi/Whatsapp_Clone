@@ -21,5 +21,4 @@ const MessageSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-// 👇 THIS LINE IS IMPORTANT
 export default mongoose.model("Message", MessageSchema);

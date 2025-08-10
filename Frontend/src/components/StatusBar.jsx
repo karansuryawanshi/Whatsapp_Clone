@@ -5,7 +5,6 @@ import ChatIcon from "../Icons/ChatIcon";
 import ChannelIcon from "../Icons/ChannelIcon";
 import CommunityIcon from "../Icons/CommunityIcon";
 import MetaIcon from "../assets/MetaIcon.png";
-// import StatusIcon from "./StatusIcon";
 import SettingIcon from "../Icons/SettingIcon";
 import UserIcon from "../Icons/UserIcon";
 
